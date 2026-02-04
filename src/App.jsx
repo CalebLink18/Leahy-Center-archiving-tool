@@ -54,59 +54,63 @@ function App() {
 
   const handleArtifactClick = (artifact) => {
     setSelectedArtifact(artifact);
-    setIsDetailOpen(true);
+    // Small delay to ensure artifact data is set before panel starts animating
+    requestAnimationFrame(() => {
+      setIsDetailOpen(true);
+    });
   };
 
   const handleCloseDetail = () => {
     setIsDetailOpen(false);
-    setTimeout(() => setSelectedArtifact(null), 300);
+    // Wait for animation to complete (400ms) before clearing artifact
+    setTimeout(() => setSelectedArtifact(null), 400);
   };
 
   return (
-    <div className="app">
-      <FilterPanel
-        isOpen={isFilterOpen}
-        onClose={() => setIsFilterOpen(false)}
-        filterOptions={filterOptions}
-        onFilterChange={setFilters}
-      />
+      <div className="app">
+        <FilterPanel
+            isOpen={isFilterOpen}
+            onClose={() => setIsFilterOpen(false)}
+            filterOptions={filterOptions}
+            onFilterChange={setFilters}
+        />
 
-      <div className="main-content">
-        <header className="app-header">
-          <button
-            className="hamburger-btn"
-            onClick={() => setIsFilterOpen(!isFilterOpen)}
-            aria-label="Toggle filters"
-          >
-            ☰
-          </button>
-          <h1>Digital Archive</h1>
-          <div className="header-spacer"></div>
-        </header>
+        <div className={`main-content ${isFilterOpen ? 'filter-open' : ''} ${isDetailOpen ? 'detail-open' : ''}`}>
+          <header className="app-header">
+            <button
+                className="hamburger-btn"
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                aria-label="Toggle filters"
+            >
+              ☰
+            </button>
+            <h1>Digital Archive</h1>
+            <div className="header-spacer"></div>
+          </header>
 
-        <div className="artifacts-grid">
-          {filteredArtifacts.length > 0 ? (
-            filteredArtifacts.map(artifact => (
-              <ArtifactCard
-                key={artifact.id}
-                artifact={artifact}
-                onClick={handleArtifactClick}
-              />
-            ))
-          ) : (
-            <div className="no-results">
-              <p>No artifacts found matching your filters.</p>
-            </div>
-          )}
+          <div className="artifacts-list">
+            {filteredArtifacts.length > 0 ? (
+                filteredArtifacts.map(artifact => (
+                    <ArtifactCard
+                        key={artifact.id}
+                        artifact={artifact}
+                        onClick={handleArtifactClick}
+                    />
+                ))
+            ) : (
+                <div className="no-results">
+                  <p>No artifacts found matching your filters.</p>
+                </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      <DetailPanel
-        artifact={selectedArtifact}
-        isOpen={isDetailOpen}
-        onClose={handleCloseDetail}
-      />
-    </div>
+        <DetailPanel
+            artifact={selectedArtifact}
+            isOpen={isDetailOpen}
+            onClose={handleCloseDetail}
+        />
+      </div>
   )
 }
 

@@ -1,26 +1,34 @@
-/* Champlain College Digital Archive - Artifact Card Styles */
+/* Champlain College Digital Archive - Artifact Card Styles (Horizontal Layout) */
 
 .artifact-card {
   background: white;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 4px rgba(0, 60, 95, 0.1); /* Champlain Blue shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 60, 95, 0.1);
   border: 1px solid rgba(0, 60, 95, 0.1);
+  display: flex;
+  flex-direction: row;
+  min-height: 180px;
+  width: 100%;
+  will-change: transform, box-shadow;
 }
 
 .artifact-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 60, 95, 0.2);
   border-color: #00A9E0; /* Bright blue accent */
 }
 
 .artifact-image {
-  width: 100%;
-  height: 200px;
+  width: 280px;
+  min-width: 280px;
+  height: 100%;
+  min-height: 180px;
   overflow: hidden;
   background-color: #BEE9F7; /* Light blue tint */
+  flex-shrink: 0;
 }
 
 .artifact-image img {
@@ -30,29 +38,34 @@
 }
 
 .artifact-info {
-  padding: 16px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+  justify-content: center;
 }
 
 .artifact-info h3 {
-  margin: 0 0 8px 0;
-  font-size: 18px;
+  margin: 0;
+  font-size: 22px;
   font-weight: 600;
   color: #003C5F; /* Champlain Blue */
+  line-height: 1.3;
 }
 
 .artifact-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: 8px;
 }
 
 .tag {
   background-color: #00A9E0; /* Bright blue */
   color: white;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   transition: background-color 0.2s;
 }
@@ -62,7 +75,34 @@
 }
 
 .artifact-meta {
-  margin: 4px 0;
+  margin: 0;
   font-size: 14px;
   color: #002A3A; /* Dark blue */
+  line-height: 1.5;
+}
+
+.artifact-meta:first-of-type {
+  margin-top: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .artifact-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .artifact-image {
+    width: 100%;
+    height: 200px;
+    min-height: 200px;
+  }
+
+  .artifact-info {
+    padding: 16px;
+  }
+
+  .artifact-info h3 {
+    font-size: 18px;
+  }
 }
