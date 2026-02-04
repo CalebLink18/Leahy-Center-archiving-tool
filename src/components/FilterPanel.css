@@ -1,0 +1,146 @@
+/* Champlain College Digital Archive - Filter Panel Styles */
+
+.filter-panel {
+  position: fixed;
+  left: -320px;
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  background: white;
+  box-shadow: 2px 0 12px rgba(0, 60, 95, 0.15);
+  transition: left 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.filter-panel.open {
+  left: 0;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 2px solid #00A9E0; /* Bright blue accent */
+  position: sticky;
+  top: 0;
+  background: #003C5F; /* Champlain Blue */
+  z-index: 1;
+}
+
+.filter-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: white;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #00A9E0; /* Bright blue */
+}
+
+.filter-content {
+  padding: 20px;
+}
+
+.clear-filters-btn {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  background-color: #BE3A34; /* Champlain red */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.clear-filters-btn:hover {
+  background-color: #9a2e29;
+}
+
+.filter-section {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #BEE9F7; /* Light blue tint */
+}
+
+.filter-section:last-child {
+  border-bottom: none;
+}
+
+.filter-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #003C5F; /* Champlain Blue */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #002A3A; /* Dark blue */
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.filter-checkbox:hover {
+  background-color: #BEE9F7; /* Light blue tint */
+}
+
+.filter-checkbox input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  accent-color: #00A9E0; /* Bright blue */
+}
+
+.date-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.date-inputs input[type="date"] {
+  padding: 10px;
+  border: 2px solid #BEE9F7; /* Light blue tint */
+  border-radius: 6px;
+  font-size: 14px;
+  color: #002A3A; /* Dark blue */
+  transition: border-color 0.2s;
+}
+
+.date-inputs input[type="date"]:focus {
+  outline: none;
+  border-color: #00A9E0; /* Bright blue */
+}

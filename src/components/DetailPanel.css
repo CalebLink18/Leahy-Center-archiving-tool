@@ -1,0 +1,114 @@
+/* Champlain College Digital Archive - Detail Panel Styles */
+
+.detail-panel {
+  position: fixed;
+  right: -400px;
+  top: 0;
+  width: 400px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 12px rgba(0, 60, 95, 0.15);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.detail-panel.open {
+  right: 0;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 2px solid #00A9E0; /* Bright blue accent */
+  position: sticky;
+  top: 0;
+  background: #003C5F; /* Champlain Blue */
+  z-index: 1;
+}
+
+.detail-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+}
+
+.detail-header .close-btn {
+  color: white;
+}
+
+.detail-header .close-btn:hover {
+  color: #00A9E0; /* Bright blue */
+}
+
+.detail-content {
+  padding: 20px;
+}
+
+.detail-image {
+  width: 100%;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #BEE9F7; /* Light blue tint */
+  border: 2px solid #7ED3EF; /* Light blue tint */
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detail-section h3 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #003C5F; /* Champlain Blue */
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.detail-section p {
+  margin: 0;
+  font-size: 16px;
+  color: #002A3A; /* Dark blue */
+  line-height: 1.6;
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detail-tag {
+  background-color: #00A9E0; /* Bright blue */
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.detail-tag:hover {
+  background-color: #236192; /* Medium blue */
+}
+
+/* Responsive adjustments for narrow screens */
+@media (max-width: 768px) {
+  .detail-panel {
+    width: 100%;
+    right: -100%;
+  }
+}

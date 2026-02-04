@@ -1,0 +1,68 @@
+/* Champlain College Digital Archive - Artifact Card Styles */
+
+.artifact-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 60, 95, 0.1); /* Champlain Blue shadow */
+  border: 1px solid rgba(0, 60, 95, 0.1);
+}
+
+.artifact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 60, 95, 0.2);
+  border-color: #00A9E0; /* Bright blue accent */
+}
+
+.artifact-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #BEE9F7; /* Light blue tint */
+}
+
+.artifact-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artifact-info {
+  padding: 16px;
+}
+
+.artifact-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #003C5F; /* Champlain Blue */
+}
+
+.artifact-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.tag {
+  background-color: #00A9E0; /* Bright blue */
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.artifact-card:hover .tag {
+  background-color: #236192; /* Medium blue on hover */
+}
+
+.artifact-meta {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #002A3A; /* Dark blue */
+}
