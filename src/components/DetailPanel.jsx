@@ -16,6 +16,21 @@ function DetailPanel({ artifact, isOpen, onClose }) {
             </div>
 
             <div className="detail-content">
+                {/* Privacy & Security Indicators */}
+                {artifact.privacy && (
+                    <div className="privacy-banner">
+                        <div className="privacy-badge">
+                            <span className="lock-icon">🔒</span>
+                            <span>{artifact.privacy.level}</span>
+                        </div>
+                        {artifact.subject?.isPseudonym && (
+                            <div className="pseudonym-badge">
+                                Identity Protected
+                            </div>
+                        )}
+                    </div>
+                )}
+
                 <div className="detail-image">
                     <img src={artifact.image} alt={artifact.title} />
                 </div>
@@ -28,7 +43,24 @@ function DetailPanel({ artifact, isOpen, onClose }) {
                     Download Artifact
                 </button>
 
+                {/* IRB & Consent Status */}
+                {artifact.consent && (
+                    <div className="consent-status">
+                        {artifact.consent.irbApproved && (
+                            <div className="irb-badge approved">
+                                ✓ IRB Approved - {artifact.consent.irbNumber}
+                            </div>
+                        )}
+                        {artifact.consent.formSigned && (
+                            <div className="consent-badge">
+                                Consent Form Signed ({new Date(artifact.consent.dateSigned).toLocaleDateString()})
+                            </div>
+                        )}
+                    </div>
+                )}
+
                 <div className="detail-info">
+                    {/* Title */}
                     {artifact.title && (
                         <div className="detail-section">
                             <h3>Title</h3>
@@ -36,6 +68,51 @@ function DetailPanel({ artifact, isOpen, onClose }) {
                         </div>
                     )}
 
+                    {/* Subject Information (WHO) */}
+                    {artifact.subject && (
+                        <div className="detail-section">
+                            <h3>Subject</h3>
+                            <p>
+                                <strong>Name:</strong> {artifact.subject.name}
+                                {artifact.subject.isPseudonym && <span className="pseudonym-note"> (Pseudonym)</span>}
+                            </p>
+                            {artifact.subject.role && <p><strong>Role:</strong> {artifact.subject.role}</p>}
+                            {artifact.subject.community && <p><strong>Community:</strong> {artifact.subject.community}</p>}
+                        </div>
+                    )}
+
+                    {/* Context */}
+                    {artifact.context && (
+                        <div className="detail-section">
+                            <h3>Context</h3>
+                            <p>{artifact.context}</p>
+                        </div>
+                    )}
+
+                    {/* Location (WHERE) */}
+                    {artifact.location && (
+                        <div className="detail-section">
+                            <h3>Location (Where)</h3>
+                            <p><strong>Place:</strong> {artifact.location.place}</p>
+                            <p><strong>City/Region:</strong> {artifact.location.city}, {artifact.location.state}</p>
+                            <p><strong>Country:</strong> {artifact.location.country}</p>
+                            {artifact.location.coordinates && (
+                                <p><strong>Coordinates:</strong> {artifact.location.coordinates}</p>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Time Period (WHEN) */}
+                    {artifact.timePeriod && (
+                        <div className="detail-section">
+                            <h3>Time Period (When)</h3>
+                            {artifact.timePeriod.created && <p><strong>Created:</strong> {artifact.timePeriod.created}</p>}
+                            {artifact.timePeriod.documented && <p><strong>Documented:</strong> {artifact.timePeriod.documented}</p>}
+                            {artifact.timePeriod.era && <p><strong>Era:</strong> {artifact.timePeriod.era}</p>}
+                        </div>
+                    )}
+
+                    {/* Description */}
                     {artifact.description && (
                         <div className="detail-section">
                             <h3>Description</h3>
@@ -43,6 +120,80 @@ function DetailPanel({ artifact, isOpen, onClose }) {
                         </div>
                     )}
 
+                    {/* Physical Description */}
+                    {artifact.physicalDescription && (
+                        <div className="detail-section">
+                            <h3>Physical Description</h3>
+                            {artifact.physicalDescription.materials && (
+                                <p><strong>Materials:</strong> {artifact.physicalDescription.materials}</p>
+                            )}
+                            {artifact.physicalDescription.dimensions && (
+                                <p><strong>Dimensions:</strong> {artifact.physicalDescription.dimensions}</p>
+                            )}
+                            {artifact.physicalDescription.condition && (
+                                <p><strong>Condition:</strong> {artifact.physicalDescription.condition}</p>
+                            )}
+                            {artifact.physicalDescription.weight && (
+                                <p><strong>Weight:</strong> {artifact.physicalDescription.weight}</p>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Function */}
+                    {artifact.function && (
+                        <div className="detail-section">
+                            <h3>Function</h3>
+                            <p>{artifact.function}</p>
+                        </div>
+                    )}
+
+                    {/* Meaning */}
+                    {artifact.meaning && (
+                        <div className="detail-section">
+                            <h3>Cultural Meaning</h3>
+                            <p>{artifact.meaning}</p>
+                        </div>
+                    )}
+
+                    {/* Transcript */}
+                    {artifact.transcript && (
+                        <div className="detail-section">
+                            <h3>Interview Transcript</h3>
+                            <div className="transcript-box">
+                                <pre>{artifact.transcript}</pre>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Additional Media */}
+                    {artifact.additionalMedia && artifact.additionalMedia.length > 0 && (
+                        <div className="detail-section">
+                            <h3>Additional Media</h3>
+                            <div className="media-list">
+                                {artifact.additionalMedia.map((media, index) => (
+                                    <div key={index} className="media-item">
+                                        <span className="media-type">{media.type.toUpperCase()}</span>
+                                        <span className="media-title">{media.title}</span>
+                                        {media.duration && <span className="media-duration">({media.duration})</span>}
+                                        {media.count && <span className="media-count">({media.count} files)</span>}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Student Analysis */}
+                    {artifact.analysis && artifact.analysis.hasStudentWork && (
+                        <div className="detail-section analysis-section">
+                            <h3>Student Analysis</h3>
+                            <div className="analysis-badge">Student Work Available</div>
+                            <p><strong>Course:</strong> {artifact.analysis.course}</p>
+                            <p><strong>Student:</strong> {artifact.analysis.student}</p>
+                            <p><strong>Summary:</strong> {artifact.analysis.summary}</p>
+                        </div>
+                    )}
+
+                    {/* Tags */}
                     {artifact.tags && artifact.tags.length > 0 && (
                         <div className="detail-section">
                             <h3>Tags</h3>
@@ -54,42 +205,48 @@ function DetailPanel({ artifact, isOpen, onClose }) {
                         </div>
                     )}
 
-                    {artifact.uploader && (
-                        <div className="detail-section">
-                            <h3>Uploaded By</h3>
-                            <p>{artifact.uploader}</p>
-                        </div>
-                    )}
-
-                    {artifact.uploadDate && (
-                        <div className="detail-section">
-                            <h3>Upload Date</h3>
-                            <p>{new Date(artifact.uploadDate).toLocaleDateString('en-US', {
+                    {/* Technical Metadata */}
+                    <div className="detail-section metadata-section">
+                        <h3>Technical Metadata</h3>
+                        {artifact.uploader && <p><strong>Uploaded By:</strong> {artifact.uploader}</p>}
+                        {artifact.uploadDate && (
+                            <p><strong>Upload Date:</strong> {new Date(artifact.uploadDate).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'long',
                                 day: 'numeric'
                             })}</p>
+                        )}
+                        {artifact.fileType && <p><strong>File Type:</strong> {artifact.fileType}</p>}
+                        {artifact.fileSize && <p><strong>File Size:</strong> {artifact.fileSize}</p>}
+                        {artifact.dimensions && <p><strong>Image Dimensions:</strong> {artifact.dimensions}</p>}
+                    </div>
+
+                    {/* Privacy Notes */}
+                    {artifact.privacy && artifact.privacy.notes && (
+                        <div className="detail-section privacy-notes">
+                            <h3>Privacy Notes</h3>
+                            <p>{artifact.privacy.notes}</p>
                         </div>
                     )}
 
-                    {artifact.fileType && (
+                    {/* Consent Permissions */}
+                    {artifact.consent && (
                         <div className="detail-section">
-                            <h3>File Type</h3>
-                            <p>{artifact.fileType}</p>
-                        </div>
-                    )}
-
-                    {artifact.fileSize && (
-                        <div className="detail-section">
-                            <h3>File Size</h3>
-                            <p>{artifact.fileSize}</p>
-                        </div>
-                    )}
-
-                    {artifact.dimensions && (
-                        <div className="detail-section">
-                            <h3>Dimensions</h3>
-                            <p>{artifact.dimensions}</p>
+                            <h3>Usage Permissions</h3>
+                            <div className="permissions-grid">
+                                <div className={`permission ${artifact.consent.permissions.archiveUse ? 'allowed' : 'denied'}`}>
+                                    {artifact.consent.permissions.archiveUse ? '✓' : '✗'} Archive Use
+                                </div>
+                                <div className={`permission ${artifact.consent.permissions.classroomUse ? 'allowed' : 'denied'}`}>
+                                    {artifact.consent.permissions.classroomUse ? '✓' : '✗'} Classroom Use
+                                </div>
+                                <div className={`permission ${artifact.consent.permissions.publicDisplay ? 'allowed' : 'denied'}`}>
+                                    {artifact.consent.permissions.publicDisplay ? '✓' : '✗'} Public Display
+                                </div>
+                                <div className={`permission ${artifact.consent.permissions.commercialUse ? 'allowed' : 'denied'}`}>
+                                    {artifact.consent.permissions.commercialUse ? '✓' : '✗'} Commercial Use
+                                </div>
+                            </div>
                         </div>
                     )}
                 </div>

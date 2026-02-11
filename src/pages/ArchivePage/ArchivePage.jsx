@@ -3,11 +3,14 @@ import './ArchivePage.css'
 import ArtifactCard from '../../components/ArtifactCard'
 import FilterPanel from '../../components/FilterPanel'
 import DetailPanel from '../../components/DetailPanel'
-import { artifacts, filterOptions } from '../../data/artifacts'
+import AddArtifactModal from '../../components/AddArtifactModal'
+import { artifacts as initialArtifacts, filterOptions } from '../../data/artifacts'
 
 function ArchivePage() {
+  const [artifacts, setArtifacts] = useState(initialArtifacts);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedArtifact, setSelectedArtifact] = useState(null);
   const [filters, setFilters] = useState({
     tags: [],
@@ -50,7 +53,7 @@ function ArchivePage() {
 
       return true;
     });
-  }, [filters]);
+  }, [filters, artifacts]);
 
   const handleArtifactClick = (artifact) => {
     setSelectedArtifact(artifact);
@@ -64,6 +67,11 @@ function ArchivePage() {
     setIsDetailOpen(false);
     // Wait for animation to complete (400ms) before clearing artifact
     setTimeout(() => setSelectedArtifact(null), 400);
+  };
+
+  const handleSaveArtifact = (newArtifact) => {
+    setArtifacts(prev => [newArtifact, ...prev]);
+    setIsAddModalOpen(false);
   };
 
   return (
@@ -85,7 +93,13 @@ function ArchivePage() {
             ☰
           </button>
           <h1>Digital Archive</h1>
-          <div className="header-spacer"></div>
+          <button
+            className="add-artifact-btn"
+            onClick={() => setIsAddModalOpen(true)}
+            aria-label="Add new artifact"
+          >
+            + Add Artifact
+          </button>
         </header>
 
         <div className="artifacts-list">
@@ -109,6 +123,12 @@ function ArchivePage() {
         artifact={selectedArtifact}
         isOpen={isDetailOpen}
         onClose={handleCloseDetail}
+      />
+
+      <AddArtifactModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSave={handleSaveArtifact}
       />
     </div>
   )
